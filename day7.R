@@ -1,8 +1,10 @@
-# Part 1
+# Data
 data <- readLines("inputs/day7_input.txt") |>
   strsplit(split = "") |>
   lapply(function(x) which(x != "."))
 diagram <- data[lengths(data) > 0][-1]
+
+# Part 1
 n <- length(diagram)
 visited <- matrix(FALSE, nrow = n, ncol = max(unlist(diagram)) + 1)
 traverse <- function(level, position) {
@@ -17,7 +19,8 @@ traverse <- function(level, position) {
   }
   return(traverse(level + 1, position))
 }
-result <- traverse(1, diagram[[1]])
+result1 <- traverse(1, diagram[[1]])
+result1
 
 # Part 2
 timelines <- matrix(c(diagram[[1]], 1), 1, 2)
@@ -38,5 +41,5 @@ while(i <= n) {
   timelines <- new[order(new[, 1]), ]
   i <- i + 1
 }
-result <- sum(timelines[, 2])
-formatC(result, format = "f", digits = 0)
+result2 <- sum(timelines[, 2])
+formatC(result2, format = "f", digits = 0)

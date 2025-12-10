@@ -1,8 +1,10 @@
-# Part 1
+# Data
 data <- readLines("inputs/day8_input.txt") |>
   strsplit(split = ",") |>
   lapply(FUN = as.numeric) |>
   do.call(what = "rbind")
+
+# Part 1
 connections <- 1000
 mat <- as.matrix(dist(data))
 diag(mat) <- Inf
@@ -19,15 +21,15 @@ for (i in seq_len(connections)) {
     new_group <- new_group + 1
   }
 }
-result <- prod(sort(table(group), decreasing = TRUE)[1:3])
-result
+result1 <- prod(sort(table(group), decreasing = TRUE)[1:3])
+result1
 
 # Part 2
 group <- seq_len(nrow(mat))
 new_group <- max(group) + 1
 n_group <- length(unique(group))
 i <- 0
-while(n_group > 1) {
+while (n_group > 1) {
   i <- i + 1
   a <- idx[i, 1]
   b <- idx[i, 2]
@@ -38,5 +40,5 @@ while(n_group > 1) {
   }
   n_group <- length(unique(group))
 }
-result <- prod(data[idx[i, ], 1])
-result
+result2 <- prod(data[idx[i, ], 1])
+result2

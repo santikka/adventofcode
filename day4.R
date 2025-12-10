@@ -1,11 +1,13 @@
-# Part 1
-data <- readLines("inputs/day4_input.txt")
-data <- strsplit(data, "")
+# Data
+data <- readLines("inputs/day4_input.txt") |>
+  strsplit(split = "")
 rolls <- do.call("rbind", data)
+
+# Part 1
 idx_mat <- as.matrix(
   expand.grid(i = c(0, -1, 1), j = c(0, -1, 1))[-1, ]
 )
-result <- 0
+result1 <- 0
 n <- nrow(rolls)
 p <- ncol(rolls)
 for (i in 1:n) {
@@ -13,13 +15,13 @@ for (i in 1:n) {
     idx <- idx_mat + cbind(rep(i, 8), rep(j, 8))
     bounds <- (idx[, 1] > 0) & (idx[, 1] <= n) & (idx[, 2] > 0) & (idx[, 2] <= p)
     idx <- idx[bounds, ]
-    result <- result + 1 * (sum(rolls[idx] == "@") < 4) * (rolls[i, j] == "@")
+    result1 <- result1 + 1 * (sum(rolls[idx] == "@") < 4) * (rolls[i, j] == "@")
   }
 }
-result
+result1
 
 # Part 2
-result <- 0
+result2 <- 0
 rolls_now <- rolls
 any_removed <- TRUE
 while (any_removed) {
@@ -34,9 +36,9 @@ while (any_removed) {
       if (remove) {
         any_removed <- TRUE
         rolls_now[i, j] <- "."
-        result <- result + 1
+        result2 <- result2 + 1
       }
     }
   }
 }
-result
+result2

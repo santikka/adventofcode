@@ -1,7 +1,9 @@
+# Data
+data <- readLines("inputs/day3_input.txt") |>
+  strsplit(split = "") |>
+  lapply(as.integer)
+
 # Part 1
-data <- readLines("inputs/day3_input.txt")
-data <- strsplit(data, "")
-data <- lapply(data, as.integer)
 joltage <- vapply(
   data,
   function(z) {
@@ -10,8 +12,8 @@ joltage <- vapply(
   },
   double(1L)
 )
-result <- sum(joltage)
-result
+result1 <- sum(joltage)
+result1
 
 # Part 2
 max_joltage <- function(z) {
@@ -27,5 +29,5 @@ max_joltage <- function(z) {
   }
   out
 }
-result <- sum(vapply(data, max_joltage, double(1)))
-formatC(result, digits = 0, format = "f")
+result2 <- sum(vapply(data, max_joltage, double(1)))
+formatC(result2, digits = 0, format = "f")

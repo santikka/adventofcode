@@ -1,4 +1,4 @@
-# Part 1
+# Data
 data <- readLines("inputs/day6_input.txt")
 n <- length(data)
 ops <- strsplit(data[n], " ")[[1]]
@@ -6,6 +6,8 @@ ops <- ops[nzchar(ops)]
 nums <- strsplit(data[-n], " ")
 nums <- lapply(nums, function(x) as.numeric(x[nzchar(x)]))
 nums <- do.call("rbind", nums)
+
+# Part 1
 problems <- vapply(
   seq_len(ncol(nums)),
   function(i) {
@@ -14,8 +16,8 @@ problems <- vapply(
   },
   numeric(1)
 )
-result <- sum(problems)
-formatC(result, format = "f", digits = 0)
+result1 <- sum(problems)
+formatC(result1, format = "f", digits = 0)
 
 # Part 2
 ops <- strsplit(data[n], "")[[1]]
@@ -26,13 +28,13 @@ nums <- lapply(
   data[-n],
   function(x) substring(x, start, end)
 )
-result <- 0
+result2 <- 0
 for (i in seq_along(idx)) {
   tmp <- vapply(nums, "[[", character(1), i) |>
     strsplit("") |>
     do.call(what = "rbind")
   terms <- apply(tmp, 2, function(x) as.numeric(paste0(x[x != " "], collapse = "")))
   problem <- paste0(terms, collapse = ops[idx[i]])
-  result <- result + eval(str2lang(problem))
+  result2 <- result2 + eval(str2lang(problem))
 }
-formatC(result, format = "f", digits = 0)
+formatC(result2, format = "f", digits = 0)

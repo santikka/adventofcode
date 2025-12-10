@@ -1,8 +1,10 @@
-# Part 1
+# Data
 data <- readLines("inputs/day2_input.txt")
 data <- strsplit(data, ",")[[1L]]
 data <- strsplit(data, "-")
 ids <- lapply(data, function(x) seq(x[1], x[2]))
+
+# Part 1
 twice <- function(x) {
   y <- as.character(x)
   n <- nchar(y)
@@ -11,13 +13,13 @@ twice <- function(x) {
   tails <- substr(y, half + 1L, n)
   sum(x[heads == tails])
 }
-result <- sum(vapply(ids, twice, double(1)))
-result
+result1 <- sum(vapply(ids, twice, double(1)))
+result1
 
 # Part 2
 repeated <- function(x) {
   idx <- grepl("^(\\S+?)\\1+$", x, perl = TRUE)
   sum(x[idx])
 }
-result <- sum(vapply(ids, repeated, double(1)))
-result
+result2 <- sum(vapply(ids, repeated, double(1)))
+result2
