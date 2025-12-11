@@ -3,9 +3,9 @@ data <- readLines("inputs/day6_input.txt")
 n <- length(data)
 ops <- strsplit(data[n], " ")[[1]]
 ops <- ops[nzchar(ops)]
-nums <- strsplit(data[-n], " ")
-nums <- lapply(nums, function(x) as.numeric(x[nzchar(x)]))
-nums <- do.call("rbind", nums)
+nums <- strsplit(data[-n], " ") |>
+  lapply(function(x) as.numeric(x[nzchar(x)])) |>
+  do.call(what = "rbind")
 
 # Part 1
 problems <- vapply(
@@ -33,7 +33,9 @@ for (i in seq_along(idx)) {
   tmp <- vapply(nums, "[[", character(1), i) |>
     strsplit("") |>
     do.call(what = "rbind")
-  terms <- apply(tmp, 2, function(x) as.numeric(paste0(x[x != " "], collapse = "")))
+  terms <- apply(
+    tmp, 2, function(x) as.numeric(paste0(x[x != " "], collapse = ""))
+  )
   problem <- paste0(terms, collapse = ops[idx[i]])
   result2 <- result2 + eval(str2lang(problem))
 }

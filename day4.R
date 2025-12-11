@@ -13,9 +13,13 @@ p <- ncol(rolls)
 for (i in 1:n) {
   for (j in 1:p) {
     idx <- idx_mat + cbind(rep(i, 8), rep(j, 8))
-    bounds <- (idx[, 1] > 0) & (idx[, 1] <= n) & (idx[, 2] > 0) & (idx[, 2] <= p)
+    bounds <- (idx[, 1] > 0) &
+      (idx[, 1] <= n) &
+      (idx[, 2] > 0) &
+      (idx[, 2] <= p)
     idx <- idx[bounds, ]
-    result1 <- result1 + 1 * (sum(rolls[idx] == "@") < 4) * (rolls[i, j] == "@")
+    result1 <- result1 + 1 *
+      (sum(rolls[idx] == "@") < 4) * (rolls[i, j] == "@")
   }
 }
 result1
@@ -30,7 +34,10 @@ while (any_removed) {
     for (j in 1:p) {
       if (rolls_now[i, j] != "@") next
       idx <- idx_mat + cbind(rep(i, 8), rep(j, 8))
-      bounds <- (idx[, 1] > 0) & (idx[, 1] <= n) & (idx[, 2] > 0) & (idx[, 2] <= p)
+      bounds <- (idx[, 1] > 0) &
+        (idx[, 1] <= n) &
+        (idx[, 2] > 0) &
+        (idx[, 2] <= p)
       idx <- idx[bounds, ]
       remove <- (sum(rolls_now[idx] == "@") < 4)
       if (remove) {

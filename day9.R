@@ -3,7 +3,6 @@ data <- readLines("inputs/day9_input.txt") |>
   strsplit(split = ",") |>
   lapply(FUN = as.numeric) |>
   do.call(what = "rbind")
-
 x <- data[, 1]
 y <- data[, 2]
 edges <- data.frame(x1 = x, x2 = c(x[-1], x[1]), y1 = y, y2 = c(y[-1], y[1]))

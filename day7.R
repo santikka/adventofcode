@@ -25,7 +25,7 @@ result1
 # Part 2
 timelines <- matrix(c(diagram[[1]], 1), 1, 2)
 i <- 1
-while(i <= n) {
+while (i <= n) {
   split <- timelines[, 1] %in% diagram[[i]]
   whole <- !timelines[, 1] %in% diagram[[i]]
   left <- timelines[split, 1] - 1

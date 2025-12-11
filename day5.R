@@ -1,10 +1,10 @@
 # Data
 data <- readLines("inputs/day5_input.txt")
 empty <- which(!nzchar(data))[1]
-fresh <- data[1:(empty - 1)]
-fresh <- strsplit(fresh, "-")
-fresh <- lapply(fresh, as.numeric)
-fresh <- do.call("rbind", fresh)
+fresh <- data[1:(empty - 1)] |>
+  strsplit(split = "-") |>
+  lapply(as.numeric) |>
+  do.call(what = "rbind")
 avail <- as.numeric(data[(empty + 1):length(data)])
 
 # Part 1
