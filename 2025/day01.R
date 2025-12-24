@@ -1,5 +1,5 @@
 # Data
-data <- readLines("inputs/day01_input.txt") |>
+data <- readLines("2025/inputs/day01_input.txt") |>
   gsub(pattern = "L", replacement = "-") |>
   gsub(pattern = "R", replacement = "")
 

@@ -1,5 +1,5 @@
 # Data
-data <- readLines("inputs/day03_input.txt") |>
+data <- readLines("2025/inputs/day03_input.txt") |>
   strsplit(split = "") |>
   lapply(as.integer)
 

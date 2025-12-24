@@ -1,5 +1,5 @@
 # Data
-data <- readLines("inputs/day06_input.txt")
+data <- readLines("2025/inputs/day06_input.txt")
 n <- length(data)
 ops <- strsplit(data[n], " ")[[1]]
 ops <- ops[nzchar(ops)]

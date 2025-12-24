@@ -1,5 +1,5 @@
 # Data
-data <- readLines("inputs/day12_input.txt")
+data <- readLines("2025/inputs/day12_input.txt")
 idx <- max(which(data == ""))
 shape_txt <- data[1:idx]
 new_shape <- grepl(":", shape_txt, perl = TRUE)

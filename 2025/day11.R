@@ -1,5 +1,5 @@
 # Data
-data <- readLines("inputs/day11_input.txt") |>
+data <- readLines("2025/inputs/day11_input.txt") |>
   strsplit(split = ":| ")
 devices <- vapply(data, "[[", character(1), 1)
 devices <- c(devices, "out")

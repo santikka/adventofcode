@@ -1,5 +1,5 @@
 # Data
-data <- readLines("inputs/day08_input.txt") |>
+data <- readLines("2025/inputs/day08_input.txt") |>
   strsplit(split = ",") |>
   lapply(FUN = as.numeric) |>
   do.call(what = "rbind")
