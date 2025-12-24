@@ -5,16 +5,15 @@ data <- readLines("2024/inputs/day04_input.txt") |>
 
 # Part 1
 n <- ncol(data)
-north <- cbind(0, 0:-3)
-east <- cbind(0:3, 0)
-south <- cbind(0, 0:3)
-west <- cbind(0:-3, 0)
-northeast <- cbind(0:3, 0:-3)
-southeast <- cbind(0:3, 0:3)
-southwest <- cbind(0:-3, 0:3)
-northwest <- cbind(0:-3, 0:-3)
 directions <- list(
-  north, east, south, west, northeast, southeast, southwest, northwest
+  cbind(0, 0:-3),
+  cbind(0:3, 0),
+  cbind(0, 0:3),
+  cbind(0:-3, 0),
+  cbind(0:3, 0:-3),
+  cbind(0:3, 0:3),
+  cbind(0:-3, 0:3),
+  cbind(0:-3, 0:-3)
 )
 xmas <- 0L
 for (i in 1:n) {
