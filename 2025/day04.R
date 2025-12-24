@@ -1,5 +1,5 @@
 # Data
-data <- readLines("inputs/day4_input.txt") |>
+data <- readLines("inputs/day04_input.txt") |>
   strsplit(split = "")
 rolls <- do.call("rbind", data)
 

@@ -1,5 +1,5 @@
 # Data
-data <- readLines("inputs/day5_input.txt")
+data <- readLines("inputs/day05_input.txt")
 empty <- which(!nzchar(data))[1]
 fresh <- data[1:(empty - 1)] |>
   strsplit(split = "-") |>

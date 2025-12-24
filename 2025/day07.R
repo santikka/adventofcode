@@ -1,5 +1,5 @@
 # Data
-data <- readLines("inputs/day7_input.txt") |>
+data <- readLines("inputs/day07_input.txt") |>
   strsplit(split = "") |>
   lapply(function(x) which(x != "."))
 diagram <- data[lengths(data) > 0][-1]

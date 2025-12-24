@@ -1,5 +1,5 @@
 # Data
-data <- readLines("inputs/day2_input.txt")
+data <- readLines("inputs/day02_input.txt")
 data <- strsplit(data, ",")[[1L]] |>
   strsplit(split = "-")
 ids <- lapply(data, function(x) seq(x[1], x[2]))

@@ -1,5 +1,5 @@
 # Data
-data <- readLines("inputs/day3_input.txt") |>
+data <- readLines("inputs/day03_input.txt") |>
   strsplit(split = "") |>
   lapply(as.integer)
 
@@ -23,7 +23,7 @@ max_joltage <- function(z) {
   for (i in 12:1) {
     idx <- (prev + 1):(n - i + 1)
     max_z <- max(z[idx])
-    out <- out + 10^(i-1) * max_z
+    out <- out + 10^(i - 1) * max_z
     prev <- which(z == max_z)[1]
     z[1:prev] <- 0
   }

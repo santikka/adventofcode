@@ -53,6 +53,7 @@ for (i in seq_along(lights)) {
 result1
 
 # Part 2
+# install.packages("Rglpk")
 library("Rglpk")
 result2 <- 0
 for (i in seq_along(joltage)) {
