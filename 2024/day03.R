@@ -1,5 +1,6 @@
 # Data
-data <- paste0(readLines("2024/inputs/day03_input.txt"), collapse = "")
+data <- readLines("2024/inputs/day03_input.txt") |> 
+  paste0(collapse = "")
 
 # Part 1
 mul_pattern <- "mul\\([1-9]{1}[0-9]{0,2},[1-9]{1}[0-9]{0,2}\\)"
