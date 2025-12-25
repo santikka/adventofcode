@@ -59,41 +59,26 @@ result1
 # Part 2
 count_sides <- function(shape) {
   idx <- which(shape, arr.ind = TRUE)
-  n <- ncol(shape)
-  prev_top_edge <- FALSE
-  prev_bottom_edge <- FALSE
-  prev_left_edge <- FALSE
-  prev_right_edge <- FALSE
-  sides <- 0
-  for (i in 2:(n - 1)) {
-    for (j in 2:(n - 1)) {
-      top_edge <- !shape[i - 1, j] && shape[i, j]
-      if (top_edge && !prev_top_edge) {
-        sides <- sides + 1
-      }
-      bottom_edge <- !shape[i + 1, j] && shape[i, j]
-      if (bottom_edge && !prev_bottom_edge) {
-        sides <- sides + 1
-      }
-      prev_top_edge <- top_edge
-      prev_bottom_edge <- bottom_edge
-    }
-  }
-  for (j in 2:(n - 1)) {
-    for (i in 2:(n - 1)) {
-      left_edge <- !shape[i, j - 1] && shape[i, j]
-      if (left_edge && !prev_left_edge) {
-        sides <- sides + 1
-      }
-      right_edge <- !shape[i, j + 1] && shape[i, j]
-      if (right_edge && !prev_right_edge) {
-        sides <- sides + 1
-      }
-      prev_left_edge <- left_edge
-      prev_right_edge <- right_edge
-    }
-  }
-  sides
+  min_row <- min(idx[, 1]) - 1
+  max_row <- max(idx[, 1]) + 1
+  min_col <- min(idx[, 2]) - 1
+  max_col <- max(idx[, 2]) + 1
+  shape <- shape[min_row:max_row, min_col:max_col]
+  n <- nrow(shape)
+  m <- ncol(shape)
+  top <- shape[-1, -c(1, m), drop = FALSE] & 
+    !shape[-n, -c(1, m), drop = FALSE]
+  bottom <- shape[-n, -c(1, m), drop = FALSE] & 
+    !shape[-1, -c(1, m), drop = FALSE]
+  left <- shape[-c(1, n), -1, drop = FALSE] & 
+    !shape[-c(1, n), -m, drop = FALSE]
+  right <- shape[-c(1, n), -m, drop = FALSE] & 
+    !shape[-c(1, n), -1, drop = FALSE]
+  sides_top <- sum(apply(top, 1, function(x) sum(diff(c(FALSE, x)) == 1)))
+  sides_bottom <- sum(apply(bottom, 1, function(x) sum(diff(c(FALSE, x)) == 1)))
+  sides_left <- sum(apply(left, 2, function(x) sum(diff(c(FALSE, x)) == 1)))
+  sides_right <- sum(apply(right, 2, function(x) sum(diff(c(FALSE, x)) == 1)))
+  sides_top + sides_bottom + sides_left + sides_right
 }
 
 compute_discounted_price <- function(map) {
