@@ -3,20 +3,6 @@ data <- readLines("2024/inputs/day10_input.txt") |>
   strsplit(split = "") |>
   lapply(as.integer) |>
   do.call(what = "rbind")
-
-data <- c(
-  "89010123",
-  "78121874",
-  "87430965",
-  "96549874",
-  "45678903",
-  "32019012",
-  "01329801",
-  "10456732"
-) |>
-  strsplit(split = "") |>
-  lapply(as.integer) |>
-  do.call(what = "rbind")
   
 # Part 1
 trail_score <- function(pos, map, reachable) {
