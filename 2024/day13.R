@@ -21,30 +21,25 @@ xy_prize <- regmatches(prize, match_prize) |>
   do.call(what = "rbind")
 
 # Part 1
-n <- nrow(xy_prize)
-result1 <- 0
-dir <- c("==", "==")
-obj <- c(3L, 1L)
-for (i in 1:n) {
-  rhs <- xy_prize[i, ]
-  mat <- cbind(xy_a[i, ], xy_b[i, ])
-  sol <- Rglpk_solve_LP(obj, mat, dir, rhs, max = FALSE, types = "I")
-  if (sol$status == 0) {
-    result1 <- result1 + sol$optimum
+count_tokens <- function(a, b, prize, offset = 0) {
+  n <- nrow(a)
+  dir <- c("==", "==")
+  obj <- c(3L, 1L)
+  tokens <- 0
+  for (i in 1:n) {
+    rhs <- prize[i, ] + offset
+    mat <- cbind(a[i, ], b[i, ])
+    sol <- Rglpk_solve_LP(obj, mat, dir, rhs, max = FALSE, types = "I")
+    if (sol$status == 0) {
+      tokens <- tokens + sol$optimum
+    }
   }
+  tokens
 }
+
+result1 <- count_tokens(xy_a, xy_b, xy_prize)
 result1
 
 # Part 2
-result2 <- 0
-dir <- c("==", "==")
-obj <- c(3L, 1L)
-for (i in 1:n) {
-  rhs <- xy_prize[i, ] + 10000000000000
-  mat <- cbind(xy_a[i, ], xy_b[i, ])
-  sol <- Rglpk_solve_LP(obj, mat, dir, rhs, max = FALSE, types = "I")
-  if (sol$status == 0) {
-    result2 <- result2 + sol$optimum
-  }
-}
+result2 <- count_tokens(xy_a, xy_b, xy_prize, offset = 10000000000000)
 formatC(result2, format = "f", digits = 0)
