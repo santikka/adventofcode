@@ -20,8 +20,6 @@ traverse_maze <- function(maze, start, end, init) {
   )
   dist <- dist[order(dist[, 1], dist[, 2]), ]
   key <- paste(dist[, 1], dist[, 2])
-  n <- nrow(dist)
-  m <- length(init)
   moves <- matrix(c(-1, 1, 0, 0, 0, 0, -1, 1), ncol = 2)
   pq <- collections::priority_queue()
   pq$push(init, priority = 0)
