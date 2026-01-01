@@ -4,15 +4,6 @@ data <- readLines("2023/inputs/day09_input.txt") |>
   lapply(as.numeric) |>
   do.call(what = "rbind")
 
-data <- c(
-  "0 3 6 9 12 15",
-  "1 3 6 10 15 21",
-  "10 13 16 21 30 45"
-) |>
-  strsplit(split = " ") |>
-  lapply(as.numeric) |>
-  do.call(what = "rbind")
-
 # Part 1
 compute_predictions <- function(x) {
   n <- nrow(data)
