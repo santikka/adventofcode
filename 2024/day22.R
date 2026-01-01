@@ -79,9 +79,9 @@ maximize_bananas <- function(prices) {
   idx <- cbind(1:n, "")
   for (i in 1:(m - 3)) {
     idx[, 2] <- paste0(
-      changes[, i], 
-      changes[, i + 1], 
-      changes[, i + 2], 
+      changes[, i],
+      changes[, i + 1],
+      changes[, i + 2],
       changes[, i + 3]
     )
     current <- bananas[idx]
