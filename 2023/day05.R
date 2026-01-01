@@ -3,7 +3,7 @@ data <- readLines("2023/inputs/day05_input.txt")
 seeds <- as.numeric(strsplit(data[1], " ")[[1]][-1])
 idx <- c(which(nchar(data) == 0), length(data) + 1)
 maps <- lapply(
-  1:(length(idx) - 1), 
+  1:(length(idx) - 1),
   function(i) data[(idx[i] + 2):(idx[i + 1] - 1)]
 )
 maps <- lapply(
