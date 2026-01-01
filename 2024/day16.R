@@ -6,10 +6,6 @@ data <- readLines("2024/inputs/day16_input.txt") |>
   do.call(what = "rbind")
 
 # Part 1
-rev_dir <- function(i) {
-  1 * (i == 2) + 2 * (i == 1) + 3 * (i == 4) + 4 * (i == 3)
-}
-
 traverse_maze <- function(maze, start, end, init) {
   dist <- which(maze == ".", arr.ind = TRUE)
   dist <- cbind(dist, matrix(Inf, nrow = nrow(dist), ncol = 4))
@@ -21,6 +17,7 @@ traverse_maze <- function(maze, start, end, init) {
   dist <- dist[order(dist[, 1], dist[, 2]), ]
   key <- paste(dist[, 1], dist[, 2])
   moves <- matrix(c(-1, 1, 0, 0, 0, 0, -1, 1), ncol = 2)
+  rev_dir <- c(2, 1, 4, 3)
   pq <- collections::priority_queue()
   pq$push(init, priority = 0)
   while (pq$size() > 0) {
@@ -36,7 +33,7 @@ traverse_maze <- function(maze, start, end, init) {
       next
     }
     for (j in 1:4) {
-      if (dir == rev_dir(j)) {
+      if (dir == rev_dir[j]) {
         next
       }
       new_dir <- moves[j, ]
@@ -91,7 +88,7 @@ optimal_tiles <- function(dist, dist_rev, optimal) {
 
 start2 <- end
 end2 <- start
-start_dir <- rev_dir(which.min(dist[idx, 3:6]))
+start_dir <- c(2, 1, 4, 3)[which.min(dist[idx, 3:6])]
 init2 <- list(score = 0, pos = start2, dir = start_dir)
 dist_rev <- traverse_maze(data, start = start2, end = end2, init = init2)
 result2 <- sum(optimal_tiles(dist, dist_rev, result1))
