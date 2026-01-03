@@ -5,48 +5,53 @@ data <- readLines("2024/inputs/day20_input.txt") |>
 
 # Part 1
 shortest_path <- function(maze, start, end) {
-  nodes <- which(maze == ".", arr.ind = TRUE)
-  key <- paste(nodes[, 1], nodes[, 2])
-  idx <- match(paste(start[1], start[2]), key)
   maze[start[1], start[2]] <- "#"
-  n <- nrow(nodes)
+  n <- nrow(maze)
   moves <- matrix(c(-1, 1, 0, 0, 0, 0, -1, 1), ncol = 2)
-  parent <- matrix(0, nrow = n, ncol = 2)
-  queue <- vector(mode = "list", length = n)
-  queue[[1]] <- start
+  parents <- array(0, dim = c(n, n, 2))
+  queue <- vector(mode = "list", length = n * n)
+  queue[[1]] <- c(start, 0)
   push_idx <- 2
   pop_idx <- 0
+  path_len <- 1
   found <- FALSE
   while (pop_idx < push_idx - 1) {
     pop_idx <- pop_idx + 1
     node <- queue[[pop_idx]]
-    if (all(node == end)) {
+    if (all(node[1:2] == end)) {
       found <- TRUE
+      path_len <- node[3] + 1
       break
     }
     for (i in 1:4) {
-      next_node <- node + moves[i, ]
-      if (maze[next_node[1], next_node[2]] == "#") {
+      next_node <- node[1:2] + moves[i, ]
+      row <- next_node[1]
+      col <- next_node[2]
+      if (maze[row, col] == "#") {
         next
       }
-      idx <- match(paste(next_node[1], next_node[2]), key)
-      maze[next_node[1], next_node[2]] <- "#"
-      parent[idx, ] <- node
-      queue[[push_idx]] <- next_node
+      maze[row, col] <- "#"
+      parents[row, col, ] <- node[1:2]
+      queue[[push_idx]] <- c(next_node, node[3] + 1)
       push_idx <- push_idx + 1
     }
   }
   if (!found) {
     return(NULL)
   }
-  node <- end
-  path <- c()
-  while (node[1] != 0 & node[2] != 0) {
-    idx <- match(paste(node[1], node[2]), key)
-    node <- parent[idx, ]
-    path <- c(idx, path)
+  path <- matrix(0, path_len, 2)
+  i <- path_len
+  path[i, ] <- end
+  row <- end[1]
+  col <- end[2]
+  while (row != 0 & col != 0) {
+    i <- i - 1
+    node <- parents[row, col, ]
+    path[i, ] <- node
+    row <- node[1]
+    col <- node[2]
   }
-  nodes[path, ]
+  path
 }
 
 best_cheats <- function(path, duration, threshold) {

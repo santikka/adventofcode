@@ -6,14 +6,11 @@ data <- readLines("2024/inputs/day18_input.txt") |>
 
 # Part 1
 shortest_path <- function(maze, start, end) {
-  nodes <- which(maze == ".", arr.ind = TRUE)
-  key <- paste(nodes[, 1], nodes[, 2])
-  idx <- match(paste(start[1], start[2]), key)
   maze[start[1], start[2]] <- "#"
-  n <- nrow(nodes)
+  n <- nrow(maze)
   moves <- matrix(c(-1, 1, 0, 0, 0, 0, -1, 1), ncol = 2)
-  parent <- matrix(0, nrow = n, ncol = 2)
-  queue <- vector(mode = "list", length = n)
+  parents <- array(0, dim = c(n, n, 2))
+  queue <- vector(mode = "list", length = n * n)
   queue[[1]] <- start
   push_idx <- 2
   pop_idx <- 0
@@ -27,12 +24,13 @@ shortest_path <- function(maze, start, end) {
     }
     for (i in 1:4) {
       next_node <- node + moves[i, ]
-      if (maze[next_node[1], next_node[2]] == "#") {
+      row <- next_node[1]
+      col <- next_node[2]
+      if (maze[row, col] == "#") {
         next
       }
-      idx <- match(paste(next_node[1], next_node[2]), key)
-      maze[next_node[1], next_node[2]] <- "#"
-      parent[idx, ] <- node
+      maze[row, col] <- "#"
+      parents[row, col, ] <- node
       queue[[push_idx]] <- next_node
       push_idx <- push_idx + 1
     }
@@ -40,14 +38,16 @@ shortest_path <- function(maze, start, end) {
   if (!found) {
     return(NULL)
   }
-  node <- end
-  visited <- logical(n)
-  while (node[1] != 0 & node[2] != 0) {
-    idx <- match(paste(node[1], node[2]), key)
-    visited[idx] <- TRUE
-    node <- parent[idx, ]
+  visited <- matrix(FALSE, n, n)
+  row <- end[1]
+  col <- end[2]
+  while (row != 0 & col != 0) {
+    visited[row, col] <- TRUE
+    node <- parents[row, col, ]
+    row <- node[1]
+    col <- node[2]
   }
-  nodes[visited, ]
+  which(visited, arr.ind = TRUE)
 }
 
 first <- 1:1024
